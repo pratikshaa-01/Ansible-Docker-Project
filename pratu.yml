@@ -1,0 +1,7 @@
+---
+- name: Setup Docker and Docker Compose and Deploy WordPress
+  hosts: localhost
+  become: true
+  roles:
+    - pratiksha-role
+

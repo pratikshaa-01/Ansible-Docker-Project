@@ -1,0 +1,48 @@
+---
+- name: Add Docker repository for Red Hat
+  get_url:
+    url: https://download.docker.com/linux/rhel/docker-ce.repo
+    dest: /etc/yum.repos.d/docker-ce.repo
+  register: docker_repo
+
+- name: Install Docker
+  yum:
+    name: docker-ce
+    state: present
+  when: docker_repo.changed
+
+- name: Ensure Docker service is enabled and running
+  service:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: Install Python pip for RHEL-based systems
+  yum:
+    name: python3-pip
+    state: present
+
+- name: Install Docker Compose
+  pip:
+    name: docker-compose
+    state: present
+
+- name: Create Docker Compose file
+  template:
+    src: docker-compose.yml.j2
+    dest: /root/docker-compose.yml
+
+- name: Bring Docker Compose services up initially
+  command: docker-compose -f /root/docker-compose.yml up -d
+  args:
+    chdir: /root
+
+- name: Stop Docker Compose services
+  command: docker-compose -f /root/docker-compose.yml down
+  args:
+    chdir: /root
+
+- name: Bring Docker Compose services up again
+  command: docker-compose -f /root/docker-compose.yml up -d
+  args:
+    chdir: /root
