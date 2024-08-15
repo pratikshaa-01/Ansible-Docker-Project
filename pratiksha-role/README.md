@@ -37,4 +37,4 @@ BSD
 Author Information
 ------------------
 
-Author's name should be Pratiksha Pawar
+Author's name : Pratiksha Pawar
