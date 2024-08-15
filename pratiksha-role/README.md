@@ -1,31 +1,33 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+This Ansible role sets up Docker and Docker Compose on Red Hat-based systems. It adds the Docker repository, installs Docker and Docker Compose, and manages a Docker Compose configuration to deploy services.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+- Ansible 2.9 or later
+- Red Hat-based system (e.g., RHEL, CentOS, Fedora)
+- Python 3 and pip (for Docker Compose installation)
+- Internet access to download Docker and Docker Compose
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+The role does not require any specific variables. However, you can customize the Docker Compose file template as needed by modifying the `docker-compose.yml.j2` Jinja2 template.
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+None.
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+- hosts: all
+  become: yes
+  roles:
+    - role: docker-compose
 
 License
 -------
@@ -35,4 +37,4 @@ BSD
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Author's name should be Pratiksha Pawar
